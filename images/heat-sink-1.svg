@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <defs>
+    <!-- velocity field: red (fast) at edges, blue (slow wake) through the middle -->
+    <linearGradient id="vfield" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"    stop-color="#b40426"/>
+      <stop offset="0.14" stop-color="#f4642a"/>
+      <stop offset="0.28" stop-color="#f7e733"/>
+      <stop offset="0.42" stop-color="#4bd44b"/>
+      <stop offset="0.5"  stop-color="#2f7fe0"/>
+      <stop offset="0.58" stop-color="#4bd44b"/>
+      <stop offset="0.72" stop-color="#f7e733"/>
+      <stop offset="0.86" stop-color="#f4642a"/>
+      <stop offset="1"    stop-color="#b40426"/>
+    </linearGradient>
+    <!-- blue wake widening to the right -->
+    <linearGradient id="wake" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0"   stop-color="#2f7fe0" stop-opacity="0"/>
+      <stop offset="0.55" stop-color="#2f7fe0" stop-opacity="0.85"/>
+      <stop offset="1"   stop-color="#1b3fd1" stop-opacity="0.95"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#vfield)"/>
+  <path d="M470 150 L960 60 L960 480 L470 390 Z" fill="url(#wake)"/>
+
+  <!-- streamlines -->
+  <g stroke="#ffffff" stroke-width="1.4" fill="none" opacity="0.85">
+    <path d="M0 70 C 250 66, 620 60, 960 55"/>
+    <path d="M0 110 C 200 108, 430 150, 620 200 C 780 240, 880 250, 960 250"/>
+    <path d="M0 150 C 160 150, 300 210, 470 260 C 650 312, 820 285, 960 275"/>
+    <path d="M0 470 C 250 474, 620 480, 960 486"/>
+    <path d="M0 430 C 200 432, 430 392, 620 340 C 780 300, 880 292, 960 292"/>
+    <path d="M0 390 C 160 390, 300 330, 470 282 C 650 232, 820 258, 960 268"/>
+    <path d="M0 270 C 200 270, 360 270, 520 270 C 700 270, 840 272, 960 272"/>
+  </g>
+
+  <!-- 5 x 5 cylinder array -->
+  <g fill="#ffffff" stroke="#0a0a0a" stroke-width="2">
+    <!-- generated rows/cols -->
+    <circle cx="180" cy="175" r="27"/><circle cx="255" cy="175" r="27"/><circle cx="330" cy="175" r="27"/><circle cx="405" cy="175" r="27"/><circle cx="480" cy="175" r="27"/>
+    <circle cx="180" cy="245" r="27"/><circle cx="255" cy="245" r="27"/><circle cx="330" cy="245" r="27"/><circle cx="405" cy="245" r="27"/><circle cx="480" cy="245" r="27"/>
+    <circle cx="180" cy="315" r="27"/><circle cx="255" cy="315" r="27"/><circle cx="330" cy="315" r="27"/><circle cx="405" cy="315" r="27"/><circle cx="480" cy="315" r="27"/>
+    <circle cx="180" cy="385" r="27"/><circle cx="255" cy="385" r="27"/><circle cx="330" cy="385" r="27"/><circle cx="405" cy="385" r="27"/><circle cx="480" cy="385" r="27"/>
+  </g>
+</svg>

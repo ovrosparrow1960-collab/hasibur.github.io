@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="pfield" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0"    stop-color="#33d6d6"/>
+      <stop offset="0.12" stop-color="#2f8fe0"/>
+      <stop offset="0.28" stop-color="#1f3fd0"/>
+      <stop offset="0.5"  stop-color="#111a8f"/>
+      <stop offset="1"    stop-color="#0d1170"/>
+    </linearGradient>
+    <linearGradient id="pbar" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0"    stop-color="#0d1170"/>
+      <stop offset="0.25" stop-color="#1f77d4"/>
+      <stop offset="0.5"  stop-color="#4bd44b"/>
+      <stop offset="0.75" stop-color="#f7e733"/>
+      <stop offset="1"    stop-color="#b40426"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="540" fill="#ffffff"/>
+  <text x="70"  y="40" fill="#222" font-family="Poppins, sans-serif" font-size="20">Time=0 s</text>
+  <text x="470" y="40" fill="#222" font-family="Poppins, sans-serif" font-size="20" text-anchor="middle">Surface: Pressure (Pa)</text>
+
+  <!-- fluid domain: expansion chambers + channel -->
+  <g stroke="#000" stroke-width="2">
+    <circle cx="440" cy="250" r="92" fill="#0d1170"/>
+    <circle cx="440" cy="320" r="92" fill="#0d1170"/>
+    <rect x="140" y="230" width="740" height="110" fill="url(#pfield)"/>
+  </g>
+
+  <!-- leaflets (flexible structures) -->
+  <g fill="#ffffff" stroke="#000" stroke-width="2">
+    <polygon points="300,231 316,231 452,276 446,281"/>
+    <polygon points="300,339 316,339 452,294 446,289"/>
+  </g>
+
+  <!-- plot frame + axes -->
+  <rect x="140" y="95" width="740" height="380" fill="none" stroke="#111" stroke-width="1.4"/>
+  <g fill="#333" font-family="Fira Code, monospace" font-size="13">
+    <text x="120" y="180" text-anchor="end">20</text>
+    <text x="120" y="290" text-anchor="end">0</text>
+    <text x="120" y="400" text-anchor="end">-20</text>
+    <text x="250" y="495">-40</text>
+    <text x="510" y="495">0</text>
+    <text x="770" y="495">40</text>
+    <text x="70" y="90" fill="#555">mm</text>
+  </g>
+
+  <!-- colorbar -->
+  <rect x="905" y="150" width="24" height="250" fill="url(#pbar)" stroke="#333" stroke-width="0.6"/>
+  <g fill="#333" font-family="Fira Code, monospace" font-size="13">
+    <text x="934" y="158">1.2</text>
+    <text x="934" y="238">0.8</text>
+    <text x="934" y="318">0.4</text>
+    <text x="934" y="400">0</text>
+  </g>
+</svg>

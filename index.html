@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title & description are set automatically from content.js -->
+    <title>Portfolio</title>
+
+    <!-- styles.css loaded with a cache-buster so edits always show on refresh -->
+    <script>document.write('<link rel="stylesheet" href="styles.css?v=' + Date.now() + '">');</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo" aria-label="Go to home">
+                <span class="logo-text" data-initials></span>
+            </a>
+            <ul class="nav-menu" id="nav-menu"><!-- built from content.js --></ul>
+            <div class="hamburger" id="hamburger" aria-label="Open navigation menu" role="button" tabindex="0">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- All sections below are generated from content.js -->
+    <section class="hero" id="home"></section>
+    <section class="about section" id="about"></section>
+    <section class="skills section" id="skills"></section>
+    <section class="experience section" id="experience"></section>
+    <section class="projects section" id="projects"></section>
+    <section class="research section" id="research"></section>
+    <section class="credentials section" id="credentials"></section>
+    <section class="contact section" id="contact"></section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-text" data-initials></span>
+                </div>
+                <p class="footer-text" data-footer-text></p>
+                <p class="footer-copyright">&copy; <span id="year"></span> All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#home" class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Video Lightbox -->
+    <div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-label="Project demo video" aria-hidden="true">
+        <div class="video-modal-backdrop" data-close-video></div>
+        <div class="video-modal-content">
+            <button type="button" class="video-modal-close" aria-label="Close video" data-close-video>
+                <i class="fas fa-times"></i>
+            </button>
+            <video id="video-modal-player" controls playsinline preload="none">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- Your content, then the renderer, then the behaviors.
+         Loaded with a cache-buster so your edits always show on refresh. -->
+    <script>
+      (function () {
+        var v = Date.now();
+        ['content.js', 'render.js', 'script.js'].forEach(function (src) {
+          document.write('<scr' + 'ipt src="' + src + '?v=' + v + '"></scr' + 'ipt>');
+        });
+      })();
+    </script>
+</body>
+</html>

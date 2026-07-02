@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="cbar" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0"    stop-color="#1b1bb4"/>
+      <stop offset="0.25" stop-color="#2fd4d4"/>
+      <stop offset="0.5"  stop-color="#4bd44b"/>
+      <stop offset="0.75" stop-color="#f7e733"/>
+      <stop offset="1"    stop-color="#b40426"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="540" fill="#ffffff"/>
+  <text x="440" y="42" fill="#222" font-family="Poppins, sans-serif" font-size="22" text-anchor="middle">Streamline: Velocity field   Surface: Velocity magnitude (m/s)</text>
+
+  <!-- 3D bounding box (isometric-ish) -->
+  <g stroke="#111" stroke-width="1.6" fill="none">
+    <polygon points="120,360 620,410 860,320 360,280" />           <!-- top -->
+    <polygon points="120,360 620,410 620,470 120,420" />           <!-- front -->
+    <line x1="620" y1="410" x2="860" y2="320"/>
+    <line x1="620" y1="470" x2="860" y2="380"/>
+    <line x1="860" y1="320" x2="860" y2="380"/>
+    <line x1="360" y1="280" x2="360" y2="340"/>
+    <line x1="120" y1="420" x2="360" y2="340"/>
+  </g>
+
+  <!-- streamlines flowing through, colored by speed -->
+  <g fill="none" stroke-width="1.5" opacity="0.9">
+    <path d="M150 330 C 360 320, 520 300, 720 285 C 800 279, 840 276, 880 275" stroke="#b40426"/>
+    <path d="M150 350 C 360 342, 520 330, 720 320 C 800 316, 840 314, 880 313" stroke="#f4642a"/>
+    <path d="M150 370 C 360 366, 520 360, 720 356 C 800 354, 840 352, 880 351" stroke="#f7e733"/>
+    <path d="M150 390 C 360 392, 520 396, 720 400 C 800 402, 840 403, 880 404" stroke="#8fd14b"/>
+    <path d="M150 410 C 360 414, 520 424, 720 434 C 800 438, 840 440, 880 442" stroke="#2fd4a0"/>
+    <path d="M150 430 C 360 436, 520 452, 720 468 C 800 474, 840 477, 880 480" stroke="#2f9fe0"/>
+    <path d="M150 312 C 360 300, 520 276, 720 258 C 800 251, 840 248, 880 246" stroke="#b40426"/>
+  </g>
+
+  <!-- heat sink block (fins) in the middle -->
+  <g fill="#2b2b2b" stroke="#000" stroke-width="1">
+    <rect x="430" y="352" width="120" height="70" rx="3"/>
+    <rect x="438" y="330" width="10" height="30"/><rect x="456" y="328" width="10" height="30"/>
+    <rect x="474" y="326" width="10" height="30"/><rect x="492" y="328" width="10" height="30"/>
+    <rect x="510" y="330" width="10" height="30"/><rect x="528" y="332" width="10" height="30"/>
+  </g>
+
+  <!-- colorbar -->
+  <rect x="890" y="150" width="26" height="260" fill="url(#cbar)" stroke="#333" stroke-width="0.6"/>
+  <g fill="#333" font-family="Fira Code, monospace" font-size="13">
+    <text x="922" y="158">0.14</text>
+    <text x="922" y="215">0.10</text>
+    <text x="922" y="285">0.06</text>
+    <text x="922" y="355">0.04</text>
+    <text x="922" y="414">0.02</text>
+  </g>
+
+  <!-- axes marker -->
+  <g stroke-width="2" font-family="Fira Code, monospace" font-size="12">
+    <line x1="70" y1="500" x2="70" y2="470" stroke="#2f7fe0"/><text x="60" y="466" fill="#2f7fe0">z</text>
+    <line x1="70" y1="500" x2="100" y2="500" stroke="#2ca02c"/><text x="104" y="504" fill="#2ca02c">y</text>
+    <line x1="70" y1="500" x2="88" y2="518" stroke="#d62728"/><text x="90" y="528" fill="#d62728">x</text>
+  </g>
+</svg>

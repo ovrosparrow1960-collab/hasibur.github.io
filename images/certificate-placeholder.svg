@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="420" viewBox="0 0 600 420">
+  <rect width="600" height="420" fill="#f4f6fb"/>
+  <rect x="40" y="40" width="520" height="340" rx="10" fill="#ffffff" stroke="#c7cde0" stroke-width="3"/>
+  <rect x="40" y="40" width="520" height="340" rx="10" fill="none" stroke="#e3e7f2" stroke-width="10" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <text x="300" y="120" fill="#6c63ff" font-family="Poppins, sans-serif" font-size="26" font-weight="700" text-anchor="middle">CERTIFICATE</text>
+  <rect x="180" y="160" width="240" height="10" rx="5" fill="#d8dcec"/>
+  <rect x="150" y="195" width="300" height="8" rx="4" fill="#e6e9f4"/>
+  <rect x="200" y="220" width="200" height="8" rx="4" fill="#e6e9f4"/>
+  <circle cx="300" cy="300" r="34" fill="none" stroke="#f50057" stroke-width="4"/>
+  <path d="M300 285l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z" fill="#f50057"/>
+  <text x="300" y="405" fill="#9aa1b8" font-family="Poppins, sans-serif" font-size="15" text-anchor="middle">Replace with your certificate image</text>
+</svg>

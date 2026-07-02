@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="jet" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0"    stop-color="#eaea22"/>
+      <stop offset="0.2"  stop-color="#f4a02a"/>
+      <stop offset="0.45" stop-color="#d62728"/>
+      <stop offset="0.8"  stop-color="#d62728"/>
+      <stop offset="1"    stop-color="#c02020"/>
+    </linearGradient>
+    <linearGradient id="vbar" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0"    stop-color="#0d1170"/>
+      <stop offset="0.25" stop-color="#1f77d4"/>
+      <stop offset="0.5"  stop-color="#4bd44b"/>
+      <stop offset="0.75" stop-color="#f7e733"/>
+      <stop offset="1"    stop-color="#b40426"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="540" fill="#ffffff"/>
+  <text x="70" y="40" fill="#222" font-family="Poppins, sans-serif" font-size="18">Time=12 s   Surface: Velocity magnitude (cm/s)   Streamline: Velocity field</text>
+
+  <!-- fluid domain (dark, low speed) -->
+  <g stroke="#000" stroke-width="2">
+    <circle cx="440" cy="250" r="92" fill="#0d1170"/>
+    <circle cx="440" cy="320" r="92" fill="#0d1170"/>
+    <rect x="140" y="230" width="740" height="110" fill="#0d1170"/>
+  </g>
+
+  <!-- central high-speed jet -->
+  <path d="M140 262 C 360 268, 560 270, 880 272 L 880 298 C 560 300, 360 302, 140 308 Z" fill="url(#jet)"/>
+
+  <!-- recirculation streamlines in the two chambers -->
+  <g fill="none" stroke="#ffffff" stroke-width="1.1" opacity="0.85">
+    <ellipse cx="440" cy="210" rx="55" ry="30"/>
+    <ellipse cx="440" cy="210" rx="34" ry="18"/>
+    <ellipse cx="440" cy="210" rx="15" ry="8"/>
+    <ellipse cx="440" cy="360" rx="55" ry="30"/>
+    <ellipse cx="440" cy="360" rx="34" ry="18"/>
+    <ellipse cx="440" cy="360" rx="15" ry="8"/>
+  </g>
+  <!-- streaklines along the jet -->
+  <g fill="none" stroke="#ffffff" stroke-width="0.8" opacity="0.5">
+    <path d="M150 278 C 400 280, 600 282, 878 283"/>
+    <path d="M150 292 C 400 291, 600 289, 878 288"/>
+  </g>
+
+  <!-- leaflets -->
+  <g fill="none" stroke="#000" stroke-width="2">
+    <polygon points="300,231 316,231 452,276 446,281"/>
+    <polygon points="300,339 316,339 452,294 446,289"/>
+  </g>
+
+  <!-- frame + axes -->
+  <rect x="140" y="95" width="740" height="380" fill="none" stroke="#111" stroke-width="1.4"/>
+  <g fill="#333" font-family="Fira Code, monospace" font-size="13">
+    <text x="120" y="180" text-anchor="end">20</text>
+    <text x="120" y="290" text-anchor="end">0</text>
+    <text x="120" y="400" text-anchor="end">-20</text>
+    <text x="250" y="495">-40</text>
+    <text x="510" y="495">0</text>
+    <text x="770" y="495">40</text>
+    <text x="70" y="90" fill="#555">mm</text>
+  </g>
+
+  <!-- colorbar -->
+  <rect x="905" y="150" width="24" height="250" fill="url(#vbar)" stroke="#333" stroke-width="0.6"/>
+  <g fill="#333" font-family="Fira Code, monospace" font-size="13">
+    <text x="934" y="158">20</text>
+    <text x="934" y="220">15</text>
+    <text x="934" y="282">10</text>
+    <text x="934" y="344">5</text>
+    <text x="934" y="400">0</text>
+  </g>
+</svg>
