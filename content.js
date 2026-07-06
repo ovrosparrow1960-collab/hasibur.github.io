@@ -266,7 +266,8 @@ const CONTENT = {
                "fluid mechanics and energy systems — with modern machine learning: physics-informed neural " +
                "networks (PINNs), neural operators (FNO, DeepONet), and data-driven discovery of governing " +
                "equations (SINDy, universal differential equations). My goal is to develop predictive, " +
-               "data-efficient models and digital twins for thermofluid and energy systems. I have a peer-reviewed " +
+               "data-efficient surrogate models and digital twins for thermofluid and energy systems, with a " +
+               "focus on uncertainty quantification (UQ) and inverse problems. I have a peer-reviewed " +
                "conference publication and am eager to contribute to a research group advancing these directions.",
     interests: [
       "Scientific Machine Learning (PINNs, Neural Operators)",
