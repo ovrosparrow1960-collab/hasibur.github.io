@@ -118,7 +118,7 @@ const CONTENT = {
         icon: "fas fa-bolt",
         title: "Power Generation",
         desc: "Operation and control of power plant systems.",
-        tags: ["Mark VI Control System", "TCS", "SCADA", "PLC", "Max DNA", "DLN Combustion", "Turbines"],
+        tags: ["Mark VI Control System", "TCS", "SCADA", "PLC", "Max DNA", "DLN Combustion", "Turbines", "Time Series Analysis"],
       },
       {
         icon: "fas fa-leaf",
