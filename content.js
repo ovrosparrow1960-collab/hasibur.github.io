@@ -94,7 +94,7 @@ const CONTENT = {
         icon: "fas fa-wind",
         title: "Computational Fluid Mechanics",
         desc: "Modeling and simulation of fluid flow and heat transfer.",
-        tags: ["CFD", "Numerical Methods", "Heat Transfer"],
+        tags: ["CFD", "FEM", "Numerical Methods", "Heat Transfer"],
       },
       {
         icon: "fas fa-brain",
