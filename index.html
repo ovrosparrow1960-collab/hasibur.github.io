@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Page title & description are set automatically from content.js -->
-    <title>Portfolio</title>
+
+    <!-- SEO: title + description (also set from content.js for browsers, but these
+         are what search engines and link-preview bots read). -->
+    <title>Hasibur Rahman Shakil — SciML · CFD · Gas Turbines · Energy Systems</title>
+    <meta name="description" content="Md. Hasibur Rahman Shakil — Mechanical Engineer (BUET) and Assistant Engineer at EGCB, seeking a funded MS/PhD in scientific machine learning, computational fluid mechanics, and energy systems. PINNs, neural operators, digital twins, and a peer-reviewed publication.">
+    <link rel="canonical" href="https://hasiburrahman-me.github.io/">
+
+    <!-- Open Graph / Twitter: controls the preview card when the link is shared. -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hasiburrahman-me.github.io/">
+    <meta property="og:title" content="Hasibur Rahman Shakil — SciML · CFD · Gas Turbines · Energy Systems">
+    <meta property="og:description" content="Mechanical Engineer (BUET) and Assistant Engineer at EGCB, seeking a funded MS/PhD in scientific machine learning, CFD, and energy systems.">
+    <meta property="og:image" content="https://hasiburrahman-me.github.io/images/profile.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hasibur Rahman Shakil — SciML · CFD · Energy Systems">
+    <meta name="twitter:description" content="Mechanical Engineer (BUET), seeking a funded MS/PhD in scientific machine learning, CFD, and energy systems.">
+    <meta name="twitter:image" content="https://hasiburrahman-me.github.io/images/profile.jpg">
 
     <!-- styles.css loaded with a cache-buster so edits always show on refresh -->
     <script>document.write('<link rel="stylesheet" href="styles.css?v=' + Date.now() + '">');</script>
@@ -30,7 +45,31 @@
     </nav>
 
     <!-- All sections below are generated from content.js -->
-    <section class="hero" id="home"></section>
+    <section class="hero" id="home">
+        <!-- Static fallback for search engines & link-preview bots (no JavaScript).
+             Browsers replace this instantly with the interactive hero via render.js. -->
+        <div class="container">
+            <h1>Md. Hasibur Rahman Shakil</h1>
+            <p>Mechanical Engineer (BSc, BUET) and Assistant Engineer at Electricity Generation
+               Company of Bangladesh (EGCB). Seeking a funded MS/PhD position in scientific machine
+               learning, computational fluid mechanics, and energy systems. Research interests:
+               physics-informed neural networks (PINNs), neural operators (FNO, DeepONet), data-driven
+               equation discovery (SINDy, universal differential equations), uncertainty quantification,
+               surrogate modeling, inverse problems, and digital twins.</p>
+            <h2>Selected Projects</h2>
+            <ul>
+                <li>Activation Function Visualization App (Streamlit)</li>
+                <li>Double Pipe Heat Exchanger — Design &amp; Fabrication</li>
+                <li>Heat Sink Simulation (COMSOL Multiphysics)</li>
+                <li>Fluid–Structure Interaction Study</li>
+                <li>Automated Waiter (Arduino, mechatronics)</li>
+                <li>COVID-19 Infection Prediction using SciML</li>
+                <li>Black Hole Dynamics using SciML</li>
+            </ul>
+            <p>Publication: “Performance Enhancement and Economic Assessment of a Fire Tube Boiler
+               Based on Energy and Exergy Analysis,” ICMERE 2023, Chittagong, Bangladesh.</p>
+        </div>
+    </section>
     <section class="about section" id="about"></section>
     <section class="skills section" id="skills"></section>
     <section class="experience section" id="experience"></section>

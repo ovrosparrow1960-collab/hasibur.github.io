@@ -16,8 +16,8 @@ const CONTENT = {
 
   /* ===== 1. BASIC SITE INFO ===== */
   meta: {
-    siteTitle: "Hasibur Rahman Shakil | Prospective MS/PhD Researcher",
-    description: "Hasibur Rahman Shakil — Mechanical Engineer (BUET) seeking funded MS/PhD positions in scientific machine learning, computational fluid mechanics, and energy systems.",
+    siteTitle: "Hasibur Rahman Shakil — SciML · CFD · Gas Turbines · Energy Systems",
+    description: "Md. Hasibur Rahman Shakil — Mechanical Engineer (BUET) and Assistant Engineer at EGCB, seeking a funded MS/PhD in scientific machine learning, computational fluid mechanics, and energy systems.",
     initials: "HR",                                // small logo in navbar + footer
   },
 

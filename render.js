@@ -48,10 +48,11 @@
     var m = C.meta || {};
     if (m.siteTitle) document.title = m.siteTitle;
     if (m.description) {
-      var d = document.createElement("meta");
-      d.name = "description";
+      // Update the static <meta name="description"> if present, else create it
+      // (avoids a duplicate tag; keeps the base HTML's SEO description in sync).
+      var d = document.querySelector('meta[name="description"]');
+      if (!d) { d = document.createElement("meta"); d.name = "description"; document.head.appendChild(d); }
       d.content = m.description;
-      document.head.appendChild(d);
     }
     document.querySelectorAll("[data-initials]").forEach(function (n) {
       n.textContent = m.initials || "";
