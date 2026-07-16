@@ -200,7 +200,54 @@ part-load work use offdesign mode (section 6).
   characteristic curves.
 - **Combined cycle:** add a heat-recovery steam generator (HeatExchanger)
   on connection 4.
-- **Optimization:** the TESPy
+- **Optimization:** done — see section 7 and
+  [`optimize_pr_tit.py`](optimize_pr_tit.py). (The TESPy
   [optimization tutorial](https://tespy.readthedocs.io/en/main/integration/optimization.html)
-  shows how to wrap the model in an `OptimizationProblem` class with pygmo
-  to e.g. find the pressure ratio that maximizes efficiency.
+  shows the same idea with pygmo instead of pymoo.)
+
+---
+
+## 7. Multi-objective optimization (pymoo, NSGA-II, Pareto front)
+
+`optimize_pr_tit.py` lets the NSGA-II genetic algorithm vary two design
+variables and maximize two objectives at once:
+
+| | Variable / objective | Range / meaning |
+|---|---|---|
+| x1 | compressor pressure ratio | 8 – 24 |
+| x2 | turbine inlet temperature (TIT) | 950 – 1350 °C |
+| f1 | net electrical efficiency [%] | maximize → less fuel per MWh |
+| f2 | specific work [kJ/kg air] | maximize → smaller, cheaper machine |
+
+Because no single design wins both objectives, the result is a **Pareto
+front** — the set of best possible compromises
+(`pareto_front.png` / `pareto_front.csv`, 40 × 30 = 1200 TESPy simulations).
+
+**How the code is structured:**
+- **STEP 1** — the same 9E model wrapped in `build_network()` +
+  `evaluate(nw, pr, tit)`. TIT is now an *input* (the optimizer picks it),
+  so the exhaust temperature becomes a *result*.
+- **STEP 2** — `GasTurbineProblem(ElementwiseProblem)`: tells pymoo the
+  bounds and returns the two objectives (negated, because pymoo always
+  minimizes). A non-converging design gets a huge penalty so the algorithm
+  avoids it.
+- **STEP 3** — run `NSGA2(pop_size=40)` for 30 generations.
+- **STEP 4/5** — print/save the front and plot it.
+
+**What the result teaches:**
+1. **TIT is pushed to its upper bound (1350 °C) on every Pareto point.**
+   Higher firing temperature improves *both* objectives, so there is no
+   trade-off in TIT — it is limited only by blade materials/cooling. This
+   is exactly why every new engine generation (9E → 9F → 9H) is mainly a
+   firing-temperature increase.
+2. **The real trade-off is the pressure ratio** (front spans pr 15 → 24):
+   pr 15 gives the smallest machine (439 kJ/kg, 36.2 % efficiency), pr 24
+   the best fuel economy (39.0 %, 427 kJ/kg).
+3. **Your 9E today** (pr 12.6, TIT 1118 °C → 33.4 %, 306 kJ/kg) sits below
+   the front because its TIT is materials-limited. The gray dashed curve in
+   the chart is the same cycle held at 1118 °C: even at pr 24 it reaches
+   only ~36 % — so ~⅔ of the gap to the front is technology (TIT), not
+   design choice. GE's pr = 12.6 lies near the *maximum specific work* for
+   1118 °C — a deliberate choice for a compact single-shaft machine.
+
+![Pareto front](pareto_front.png)
