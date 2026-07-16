@@ -4,6 +4,10 @@ A working thermodynamic model of a simple-cycle gas turbine power plant
 (Brayton cycle), built with [TESPy](https://tespy.readthedocs.io).
 The code is in [`simple_gas_turbine.py`](simple_gas_turbine.py).
 
+**The model is set up with real plant data: GE Frame 9E, site full load
+105 MW, exhaust temperature 560–575 °C (full load) / 440–450 °C (part
+load).** See section 4 for the validation results.
+
 ```
                  fuel (5)
                     |
@@ -86,7 +90,7 @@ Every `set_attr(...)` line marked with ★ must be replaced with your values:
 | `comp.set_attr(eta_s=)` | compressor isentropic efficiency | OEM / performance test (typ. 0.82–0.88) |
 | `combust.set_attr(pr=)` | combustor pressure drop (0.97 = 3 % loss) | OEM datasheet |
 | `combust.set_attr(eta=)` | combustion efficiency (heat loss) | OEM datasheet (typ. 0.98–0.995) |
-| `c3.set_attr(T=)` | turbine inlet temperature (TIT) — the most important number | OEM datasheet (DCS usually shows exhaust T, not TIT) |
+| `c4.set_attr(T=)` | **measured exhaust temperature** — the model then *calculates* the TIT (which the DCS cannot show) | DCS exhaust thermocouples |
 | `c4.set_attr(p=)` | exhaust pressure ≈ ambient | leave ≈ 1.013 bar |
 | `turb.set_attr(eta_s=)` | turbine isentropic efficiency | OEM / performance test (typ. 0.85–0.92) |
 | `gen.set_attr(eta=)` | generator efficiency | OEM datasheet (typ. 0.985) |
@@ -124,21 +128,60 @@ discharge T/p, exhaust temperature.
    Then you have a validated model you can use for what-if studies
    (hot day performance, part load, degradation, upgrades).
 
-## 4. Example output (default ★ values, 50 MW class unit)
+## 4. Results with the real GE Frame 9E data
+
+Inputs given to the model: pressure ratio 12.6 (9E datasheet), ambient
+30 °C, net load, and the **measured** exhaust temperature. The model then
+*calculates* the turbine inlet temperature (TIT) and everything else.
+
+**Full load — 105 MW, exhaust 565 °C (measured):**
 
 ```
-Net electrical output      :      50.00 MW
-Turbine shaft power        :     106.35 MW
-Compressor consumption     :      55.58 MW
-Fuel heat input (LHV)      :     137.04 MW
-Net electrical efficiency  :      36.49 %
-Air mass flow              :     135.43 kg/s
-Fuel mass flow             :      2.854 kg/s
-Compressor discharge T     :      422.2 degC
-Exhaust temperature        :      575.6 degC
+Net electrical output      :     105.00 MW   (input, DCS)
+Fuel heat input (LHV)      :     314.18 MW
+Net electrical efficiency  :      33.42 %
+Air mass flow              :     343.33 kg/s
+Fuel mass flow             :       6.542 kg/s
+Compressor discharge T     :      394.2 degC
+Compressor discharge p     :      12.76 bar
+CALCULATED TIT             :     1117.8 degC
+Exhaust temperature        :      565.0 degC  (input, DCS)
 ```
 
-These are realistic values for a modern 50 MW-class simple-cycle machine.
+**Validation — why we can trust this model:**
+- Calculated TIT = **1117.8 °C**, and the published GE 9E firing
+  temperature is **~1124 °C** → within 6 °C, without ever telling the
+  model what a 9E fires at.
+- Efficiency = **33.4 %**, and the 9E simple-cycle ISO rating is
+  **~33.8 %** → matches (slightly lower is correct on a 30 °C day).
+
+**Part load — 70 MW, exhaust 445 °C (measured):**
+
+```
+Net electrical output      :      70.00 MW   (input, DCS)
+Fuel heat input (LHV)      :     224.03 MW
+Net electrical efficiency  :      31.25 %
+Fuel mass flow             :       4.665 kg/s
+CALCULATED TIT             :      938.7 degC
+Exhaust temperature        :      445.0 degC  (input, DCS)
+```
+
+The lower exhaust temperature at part load is reproduced by the machine
+turning its firing temperature down (1118 → 939 °C) — exactly how a 9E
+behaves below the temperature-control range. Note the part-load run keeps
+compressor `pr`/`eta_s` constant (ignores IGV modulation); for precise
+part-load work use offdesign mode (section 6).
+
+**Numbers you can still improve with more plant data:**
+- **Fuel flow**: if your DCS shows gas flow (kg/s or Nm³/h), compare with
+  the calculated 6.54 kg/s — this is the single best check of the
+  efficiency chain.
+- **Compressor discharge T & p (CPD)**: compare with the calculated
+  394 °C / 12.8 bar to tune `comp.eta_s`.
+- **Air flow**: a clean new 9E moves ~410 kg/s exhaust flow at ISO; the
+  model computed 343 kg/s from your 105 MW — if your unit's measured flow
+  differs, the component efficiencies need tuning (aging/fouling shows up
+  here).
 
 ## 5. Common errors and fixes
 

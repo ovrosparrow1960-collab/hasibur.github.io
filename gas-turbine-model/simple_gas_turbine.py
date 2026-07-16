@@ -35,7 +35,8 @@ DATA YOU MUST TAKE FROM YOUR REAL POWER PLANT  (replace the ★ values below)
 |                      |                                  | DCS: p2 sensor   |
 | compressor eta_s     | Isentropic efficiency            | OEM / heat-bal.  |
 | cc pr, eta           | Combustor pressure loss & losses | OEM datasheet    |
-| c3.set_attr(T)       | Turbine inlet temperature (TIT)  | OEM / DCS        |
+| c4.set_attr(T)       | Measured exhaust temperature     | DCS exhaust TC   |
+|                      | (model then CALCULATES the TIT)  |                  |
 | turbine eta_s        | Isentropic efficiency            | OEM / heat-bal.  |
 | generator eta        | Generator efficiency             | OEM datasheet    |
 | e_grid.set_attr(E)   | Net electrical output (MW)       | Energy meter     |
@@ -129,7 +130,16 @@ nw.add_conns(e1, e2, e3, e4)
 
 
 # =============================================================================
-# STEP 5 - SET THE PLANT DATA  (★ = replace with YOUR real plant values)
+# STEP 5 - SET THE PLANT DATA
+# -----------------------------------------------------------------------------
+# Values below = GE Frame 9E, site full load 105 MW, measured exhaust
+# temperature ~565 degC.  (★ = value taken / to be refined from plant data)
+#
+# TRICK USED HERE: the DCS does not show the turbine inlet temperature (TIT),
+# but it DOES show the exhaust temperature. So instead of specifying TIT on
+# connection 3, we specify the MEASURED exhaust temperature on connection 4
+# and let TESPy calculate the TIT. Comparing the calculated TIT with the
+# known 9E firing temperature (~1124 degC) validates the whole model.
 # =============================================================================
 
 # --- 5a. Ambient air at the compressor inlet (connection 1) ----------------
@@ -137,7 +147,8 @@ nw.add_conns(e1, e2, e3, e4)
 # to model humidity effects.
 c1.set_attr(
     p=1.013,      # ★ ambient pressure   [bar]  (site barometer)
-    T=25,         # ★ ambient temperature [degC] (site thermometer)
+    T=30,         # ★ ambient temperature [degC] (hot site -> 105 MW,
+                  #   below the 126 MW ISO rating of the 9E)
     fluid={"Ar": 0.0129, "N2": 0.7553, "CO2": 0.0004, "O2": 0.2314},
 )
 
@@ -145,36 +156,41 @@ c1.set_attr(
 # ★ Replace composition with your gas chromatograph analysis (mass fractions,
 #   must sum to 1). CH4 = methane. Add e.g. "C2H6": ... for ethane if present.
 c5.set_attr(
-    p=25,         # ★ fuel gas supply pressure [bar] - must be ABOVE the
-                  #   compressor discharge pressure so gas can enter the
-                  #   combustor
+    p=20,         # ★ fuel gas supply pressure [bar] - must be ABOVE the
+                  #   compressor discharge pressure (~12.8 bar) so gas can
+                  #   enter the combustor
     T=25,         # ★ fuel gas supply temperature [degC]
-    fluid={"CH4": 0.96, "CO2": 0.03, "N2": 0.01},
+    fluid={"CH4": 0.96, "CO2": 0.03, "N2": 0.01},  # ★ replace with your
+                  #   gas analysis (mass fractions, must sum to 1)
 )
 
 # --- 5c. Compressor ----------------------------------------------------------
 comp.set_attr(
-    pr=15,        # ★ pressure ratio p2/p1 (e.g. GE 9E ~ 12.6, GE 9FA ~ 15.4)
-    eta_s=0.85,   # ★ isentropic efficiency (0.82-0.88 typical)
+    pr=12.6,      # GE Frame 9E pressure ratio (OEM datasheet)
+    eta_s=0.86,   # ★ isentropic efficiency (0.82-0.88 typical) - refine by
+                  #   comparing calculated compressor discharge T with DCS
 )
 
 # --- 5d. Combustion chamber --------------------------------------------------
 combust.set_attr(
     pr=0.97,      # ★ pressure kept: p3/p2 (3 % combustor pressure drop)
-    eta=0.98,     # ★ combustion efficiency (2 % heat loss to casing)
+    eta=0.99,     # ★ combustion efficiency (1 % heat loss to casing)
 )
 
 # --- 5e. Turbine -------------------------------------------------------------
-c3.set_attr(T=1200)   # ★ turbine inlet temperature TIT [degC] - THE key
-                      #   design value of a gas turbine (OEM datasheet)
-c4.set_attr(p=1.013)  # exhaust discharges to ambient pressure [bar]
-turb.set_attr(eta_s=0.90)  # ★ isentropic efficiency (0.85-0.92 typical)
+c4.set_attr(
+    p=1.013,      # exhaust discharges to ambient pressure [bar]
+    T=565,        # ★ MEASURED exhaust temperature at full load [degC]
+                  #   (your DCS shows 560-575 at full load)
+                  #   -> TESPy calculates the TIT from this
+)
+turb.set_attr(eta_s=0.88)  # ★ isentropic efficiency (0.85-0.92 typical)
 
 # --- 5f. Generator and net output -------------------------------------------
 gen.set_attr(eta=0.985)  # ★ generator efficiency (OEM datasheet)
-e4.set_attr(E=50e6)      # ★ NET electrical output to grid [W] = 50 MW
-                         #   -> TESPy computes the air/fuel flow that
-                         #      delivers exactly this power
+e4.set_attr(E=105e6)     # ★ NET electrical output = your full load 105 MW
+                         #   in watts -> TESPy computes the air/fuel flow
+                         #   that delivers exactly this power
 
 
 # =============================================================================
@@ -202,7 +218,7 @@ Q_fuel    = combust.ti.val                # fuel heat input (LHV) [W]
 eta_cycle = P_net / Q_fuel                # net electrical efficiency
 
 print("\n" + "=" * 60)
-print("RESULTS - compare these with your real plant data")
+print("FULL LOAD (105 MW) - compare with your DCS")
 print("=" * 60)
 print(f"Net electrical output      : {P_net / 1e6:10.2f} MW")
 print(f"Turbine shaft power        : {P_turbine / 1e6:10.2f} MW")
@@ -213,6 +229,37 @@ print(f"Air mass flow              : {c1.m.val:10.2f} kg/s")
 print(f"Fuel mass flow             : {c5.m.val:10.3f} kg/s")
 print(f"Compressor discharge T     : {c2.T.val:10.1f} degC")
 print(f"Compressor discharge p     : {c2.p.val:10.2f} bar")
-print(f"Turbine inlet T (TIT)      : {c3.T.val:10.1f} degC")
-print(f"Exhaust temperature        : {c4.T.val:10.1f} degC")
+print(f"CALCULATED TIT             : {c3.T.val:10.1f} degC   <- check vs")
+print(f"                                            9E firing T ~1124 degC")
+print(f"Exhaust temperature        : {c4.T.val:10.1f} degC   (input, DCS)")
+print("=" * 60)
+
+
+# =============================================================================
+# STEP 8 - PART LOAD CHECK
+# -----------------------------------------------------------------------------
+# Your plant: exhaust temperature drops to 440-450 degC at part load.
+# We re-solve the SAME model with part-load data: lower net power and the
+# measured part-load exhaust temperature. TESPy then shows how far the
+# machine turns its firing temperature down.
+#
+# NOTE: this is a simplification - it keeps compressor pr and eta_s constant,
+# i.e. it ignores the IGV (inlet guide vane) control of the real 9E. For
+# accurate part-load studies use TESPy's offdesign mode with characteristic
+# curves (see README, section 6).
+# =============================================================================
+e4.set_attr(E=70e6)   # ★ part-load net power [W] - set YOUR actual MW here
+c4.set_attr(T=445)    # ★ measured part-load exhaust temperature [degC]
+
+nw.solve(mode="design")
+
+print("\n" + "=" * 60)
+print("PART LOAD (70 MW) - compare with your DCS")
+print("=" * 60)
+print(f"Net electrical output      : {e4.E.val / 1e6:10.2f} MW")
+print(f"Fuel heat input (LHV)      : {combust.ti.val / 1e6:10.2f} MW")
+print(f"Net electrical efficiency  : {e4.E.val / combust.ti.val * 100:10.2f} %")
+print(f"Fuel mass flow             : {c5.m.val:10.3f} kg/s")
+print(f"CALCULATED TIT             : {c3.T.val:10.1f} degC")
+print(f"Exhaust temperature        : {c4.T.val:10.1f} degC   (input, DCS)")
 print("=" * 60)
