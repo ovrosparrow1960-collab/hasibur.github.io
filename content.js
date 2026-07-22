@@ -54,8 +54,9 @@ const CONTENT = {
     resumeButtonLabel: "Download CV",
     // Social icons under the intro.
     socials: [
-      { icon: "fab fa-linkedin-in", url: "https://www.linkedin.com/in/hasibur-rahman-shakil-b261aa150/", label: "LinkedIn" },
-      { icon: "fas fa-envelope",    url: "mailto:ovrosparrow1960@gmail.com", label: "Email" },
+      { icon: "fab fa-linkedin-in",  url: "https://www.linkedin.com/in/hasibur-rahman-shakil-b261aa150/", label: "LinkedIn" },
+      { icon: "fab fa-researchgate", url: "https://www.researchgate.net/profile/Md-Hasibur-Rahman-27", label: "ResearchGate" },
+      { icon: "fas fa-envelope",     url: "mailto:ovrosparrow1960@gmail.com", label: "Email" },
     ],
   },
 
@@ -368,8 +369,9 @@ const CONTENT = {
     location: "Dhaka, Bangladesh",
     phone: "",                       // add your phone number to show it, e.g. "+880 1XXX XXXXXX"
     socials: [
-      { icon: "fab fa-linkedin-in", url: "https://www.linkedin.com/in/hasibur-rahman-shakil-b261aa150/", label: "LinkedIn" },
-      { icon: "fas fa-envelope",    url: "mailto:ovrosparrow1960@gmail.com", label: "Email" },
+      { icon: "fab fa-linkedin-in",  url: "https://www.linkedin.com/in/hasibur-rahman-shakil-b261aa150/", label: "LinkedIn" },
+      { icon: "fab fa-researchgate", url: "https://www.researchgate.net/profile/Md-Hasibur-Rahman-27", label: "ResearchGate" },
+      { icon: "fas fa-envelope",     url: "mailto:ovrosparrow1960@gmail.com", label: "Email" },
     ],
     firstName: "Hasibur",            // used in the auto-filled email: "Hi Hasibur,"
   },
